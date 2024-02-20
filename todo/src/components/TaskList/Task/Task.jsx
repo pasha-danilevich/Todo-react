@@ -8,6 +8,7 @@ export default function Task(task) {
     const contextValue = useContext(Context)
 
     function chengeHendler(obj){
+        // добавить поле editing
         contextValue.setTask(obj)
         console.log('task in hendler', contextValue.task)
     }
