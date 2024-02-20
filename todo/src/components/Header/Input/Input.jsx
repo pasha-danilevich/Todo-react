@@ -1,5 +1,5 @@
 import "./Input.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Context } from "../../../context";
 
 export default function Input() {
@@ -7,7 +7,7 @@ export default function Input() {
     const contextValue = useContext(Context);
 
     
-    
+    // console.log(contextValue.task)
 
     
     function handleChenge(e) {
@@ -17,6 +17,7 @@ export default function Input() {
             ...contextValue.task,
             title: e.target.value,
         })
+        
         // else
         // Отдает e.target.value в callback on Change()
     }

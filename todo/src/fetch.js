@@ -1,6 +1,5 @@
 
-
-function getCookie(name) {
+export function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== "") {
         var cookies = document.cookie.split(";");
@@ -18,16 +17,48 @@ function getCookie(name) {
     return cookieValue;
 }
 
-
-
-export async function fetchTasks(setTasks, setLoading) {
-    setLoading(true);
-
+export  function fetchTasks() {
+    console.log('fetch...')
     const url = "http://127.0.0.1:8000/api/task-list/";
-    const response = await fetch(url);
-    const data = await response.json();
+    const data = fetch(url).then(response => response.json())
 
-    setTasks(data);
-    setLoading(false);
+    return data
+}
+
+
+export async function fetchTaskCreate(task, getCookie) {
+    console.log("saveing...");
+
+    var csrftoken = getCookie("csrftoken");
+
+    const url = "http://127.0.0.1:8000/api/task-create/";
+
+    fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json",
+            "X-CSRFToken": csrftoken,
+        },
+        body: JSON.stringify(task),
+    })
+        // Было бы классно если бы после создания таски не получать весь список
+        // из сервера, а добавлять к уже имеющемуся стэйту
+
+        
+        // .catch(function (error) {
+        //     console.log("ERROR:", error);
+        // });
 
 }
+
+
+
+
+// UPDATE
+
+// if (this.state.editing == true) {
+//     url = `http://127.0.0.1:8000/api/task-update/${this.state.activeItem.id}/`;
+//     this.setState({
+//         editing: false,
+//     });
+// }

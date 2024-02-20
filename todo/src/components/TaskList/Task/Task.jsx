@@ -16,7 +16,7 @@ export default function Task(task) {
     return (
         <div className="task">
             <div className="title">
-                <span>{task.task.title}</span>
+                <span className="span-title">{task.task.title}</span>
             </div>
             
             <div className="action">

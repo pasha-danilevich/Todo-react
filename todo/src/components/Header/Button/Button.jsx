@@ -1,15 +1,15 @@
 import classes from "./Button.module.css";
 
 export default function Button({ children, title }) {
-    // fetch
+    
 
     // принимает title
     function handleSaveChanges(){
-        // запускает fetch
+        // fetchTaskCreate()
     }
-
+    
     return (
-        <button className={classes.button} onClick={handleSaveChanges}>
+        <button type="submit" className={classes.button}>
             {children}
         </button>
     );

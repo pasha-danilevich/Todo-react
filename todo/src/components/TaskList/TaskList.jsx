@@ -9,16 +9,21 @@ export default function TaskList() {
     const [listTasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(false);
 
+    async function load() {
+        setLoading(true);
+        setTasks( await fetchTasks(setTasks, setLoading));
+        setLoading(false);
+    }
 
     useEffect(() => {
-        fetchTasks(setTasks, setLoading);
+        load();
     }, []);
 
     return (
         <div className="wrapper">
             {loading && <p>Loading...</p>}
-
-            {!loading &&
+            
+            {!loading && 
                 listTasks.map(function (task, index) {
                     return (
                         // Передать key прям в сомпонент Task
