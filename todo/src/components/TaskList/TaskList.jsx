@@ -6,18 +6,7 @@ import Task from "./Task/Task";
 import { useState, useEffect } from "react";
 
 export default function TaskList() {
-    const [listTasks, setTasks] = useState([]);
-    const [loading, setLoading] = useState(false);
-
-    async function load() {
-        setLoading(true);
-        setTasks( await fetchTasks(setTasks, setLoading));
-        setLoading(false);
-    }
-
-    useEffect(() => {
-        load();
-    }, []);
+    
 
     return (
         <div className="wrapper">
