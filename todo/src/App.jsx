@@ -25,12 +25,18 @@ export default function App() {
 
     function handleSubmit(bool) {
         load();
+        setActiveItem({
+            id: null,
+            title: "",
+            complated: false,
+            editing: false,
+        });
     }
-    function handleClick(item){
-      setActiveItem(item)
+    function handleClick(item) {
+        setActiveItem(item);
     }
-    function handleChenge(item){
-      setActiveItem(item)
+    function handleChenge(item) {
+        setActiveItem(item);
     }
 
     useEffect(() => {
@@ -39,8 +45,16 @@ export default function App() {
 
     return (
         <>
-            <Header onSubmitCallBack={handleSubmit} activeItem={activeItem} handleChengeCallBack={handleChenge}/>
-            <TaskList taskList={taskList} loading={loading} handleClickCallBack={handleClick} />
+            <Header
+                onSubmitCallBack={handleSubmit}
+                activeItem={activeItem}
+                handleChengeCallBack={handleChenge}
+            />
+            <TaskList
+                taskList={taskList}
+                loading={loading}
+                handleClickCallBack={handleClick}
+            />
         </>
     );
 }

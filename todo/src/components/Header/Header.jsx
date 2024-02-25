@@ -4,23 +4,32 @@ import Button from "./Button/Button";
 import { useState } from "react";
 
 import { getCookie } from "../../getCookie";
-import { fetchTaskCreate } from "../../fetch";
+import { fetchTaskCreate, fetchTaskUpdate } from "../../fetch";
 
 export default function Header({ onSubmitCallBack, activeItem, handleChengeCallBack }) {
     // const [title, setTitle] = useState("");
 
-    const stateActiveItem = activeItem
-    console.log(stateActiveItem)
 
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        fetchTaskCreate(activeItem, getCookie);
-        // создать изменение 
+        if (activeItem.editing){
+            fetchTaskUpdate(activeItem, getCookie).then(() => onSubmitCallBack())
+        }else{
+            fetchTaskCreate(activeItem, getCookie).then(() => onSubmitCallBack());
+        }
 
-        // не используется async могут быть ошибки
-        onSubmitCallBack();
+
+        // не используется async могут быть ошибки*
+
+        // update
+        // в данном случае очень важен async так как таска не успевает создаться
+        // на сервере, а submit уже отправлен
+        
+        // update +
+        // в идеале использовать конструкцию: 
+        // await fetch(url).then(doSomething())
     }
 
     function handleChenge(e) {
@@ -34,16 +43,16 @@ export default function Header({ onSubmitCallBack, activeItem, handleChengeCallB
     return (
         <header>
             <form onSubmit={handleSubmit}>
-                {/* отдает title */}
+
                 <input
                     className="input"
                     type="text"
                     onChange={handleChenge}
-                    value={stateActiveItem.title ? stateActiveItem.title : ''}
-                    placeholder="Add task.."
+                    value={activeItem.title ? activeItem.title : ''}
+                    placeholder="Что надо сделать..."
                 />
-                {/* принимает useState */}
-                <Button>Создать</Button>
+
+                <Button>{activeItem.editing ? 'Изменить' : 'Создать'}</Button>
             </form>
         </header>
     );
