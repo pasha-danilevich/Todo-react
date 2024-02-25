@@ -9,8 +9,8 @@ export default function Task(task) {
 
     function chengeHendler(obj){
         // добавить поле editing
-        contextValue.setTask(obj)
-        console.log('task in hendler', contextValue.task)
+        contextValue.setActiveItem(obj)
+        console.log('task in hendler', contextValue.activeItem)
     }
 
     return (

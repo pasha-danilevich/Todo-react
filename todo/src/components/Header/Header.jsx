@@ -15,7 +15,7 @@ export default function Header() {
     function handleSubmit(e) {
         e.preventDefault();
 
-        fetchTaskCreate(contextValue.task, getCookie)
+        fetchTaskCreate(contextValue.activeItem, getCookie)
     }
 
     return (

@@ -27,7 +27,7 @@ export  function fetchTasks() {
 
 
 export async function fetchTaskCreate(task, getCookie) {
-    console.log("saveing...");
+    console.log("saving...");
 
     var csrftoken = getCookie("csrftoken");
 

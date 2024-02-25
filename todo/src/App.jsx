@@ -6,11 +6,11 @@ import TaskList from "./components/TaskList/TaskList";
 import { useState } from "react";
 
 export default function App() {
-  const [task, setTask] = useState()
+  const [activeItem, setActiveItem] = useState()
   
   
   return (
-      <Context.Provider value={{ task, setTask }}>
+      <Context.Provider value={{ activeItem, setActiveItem }}>
           <Header />
           <TaskList />
       </Context.Provider>

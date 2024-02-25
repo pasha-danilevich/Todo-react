@@ -7,14 +7,14 @@ export default function Input() {
     const contextValue = useContext(Context);
 
     
-    // console.log(contextValue.task)
+    // console.log(contextValue.activeItem)
 
     
     function handleChenge(e) {
         // если contextValue.task.editing == true
         // то 
-        contextValue.setTask({
-            ...contextValue.task,
+        contextValue.setActiveItem({
+            ...contextValue.activeItem,
             title: e.target.value,
         })
         
@@ -27,7 +27,7 @@ export default function Input() {
             className="input"
             type="text"
             onChange={handleChenge}
-            value={contextValue.task ? contextValue.task.title : ''}
+            value={contextValue.activeItem ? contextValue.activeItem.title : ''}
             placeholder="Add task.."
         />
     );
