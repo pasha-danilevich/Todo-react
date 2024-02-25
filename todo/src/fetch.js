@@ -1,4 +1,3 @@
-
 export function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== "") {
@@ -17,16 +16,15 @@ export function getCookie(name) {
     return cookieValue;
 }
 
-export  function fetchTasks() {
-    console.log('fetch...')
+export function fetchTasks() {
+    console.log("fetch...");
     const url = "http://127.0.0.1:8000/api/task-list/";
-    const data = fetch(url).then(response => response.json())
+    const data = fetch(url).then((response) => response.json());
 
-    return data
+    return data;
 }
 
-
-export async function fetchTaskCreate(task, getCookie) {
+export async function fetchTaskCreate(contextValue, getCookie) {
     console.log("saving...");
 
     var csrftoken = getCookie("csrftoken");
@@ -39,20 +37,18 @@ export async function fetchTaskCreate(task, getCookie) {
             "Content-type": "application/json",
             "X-CSRFToken": csrftoken,
         },
-        body: JSON.stringify(task),
+        body: JSON.stringify(contextValue.activeItem),
     })
-        // Было бы классно если бы после создания таски не получать весь список
-        // из сервера, а добавлять к уже имеющемуся стэйту
-
-        
-        // .catch(function (error) {
-        //     console.log("ERROR:", error);
-        // });
-
+        .then(
+            contextValue.setActiveItem({
+                ...contextValue.activeItem,
+                saved: true,
+            })
+        )
+        .catch(function (error) {
+            console.log("ERROR:", error);
+        });
 }
-
-
-
 
 // UPDATE
 

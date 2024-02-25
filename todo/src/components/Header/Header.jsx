@@ -9,13 +9,18 @@ import Input from "./Input/Input";
 import Button from "./Button/Button";
 
 export default function Header() {
-    // useState
     const contextValue = useContext(Context);
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        fetchTaskCreate(contextValue.activeItem, getCookie)
+        // if (obj.editing == true){
+
+        // }else{
+
+        // }
+        fetchTaskCreate(contextValue, getCookie)
+
     }
 
     return (
