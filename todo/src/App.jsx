@@ -33,7 +33,12 @@ export default function App() {
         });
     }
     function handleClick(item) {
+      if (item == 'delete'){
+        load();
+      }else{
         setActiveItem(item);
+      }
+      
     }
     function handleChenge(item) {
         setActiveItem(item);

@@ -1,5 +1,4 @@
 .task {
-
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -10,16 +9,46 @@
     margin-bottom: 20px;
 }
 
-
-.title{
+.title {
     display: flex;
     align-items: center;
 }
-.action > *{
+.action > * {
     margin: 10px;
 }
 
-.span-title{
+.span-title {
     font-size: 1.5em;
     font-weight: 500;
+}
+
+
+
+.checkbox-input {
+    display: none;
+}
+.checkbox-input:checked + label .checkbox:after {
+    transform: translate(-50%, -50%) scale(1);
+}
+.checkbox {
+    border: 2px solid white;
+    border-radius: 5px;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    position: relative;
+    margin: 0px 10px;
+}
+.checkbox:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 15px;
+    height: 15px;
+    background-color: rgb(118 232 137);
+    border-radius: 3px;
+    transition: 0.1s;
 }

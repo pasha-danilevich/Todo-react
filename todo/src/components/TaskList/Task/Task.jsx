@@ -1,32 +1,41 @@
 import "./Task.css";
 
+import { fetchTaskDelete } from "../../../fetch";
+import { getCookie } from "../../../getCookie";
+
 export default function Task({ task, onClickCallBack }) {
-    function handleClick(item, isChange) {
+    function handleClickChange(item) {
         const task = {
             ...item,
-            editing: null,
+            editing: true,
         };
-
-        if (isChange) {
-            task.editing = true;
-        } else {
-            task.editing = false;
-        }
-        
         onClickCallBack(task);
+    }
+
+    function handleClickDelete(id) {
+        fetchTaskDelete(id, getCookie).then(() => onClickCallBack("delete"));
     }
 
     return (
         <div className="task">
             <div className="title">
-                <span className="span-title">{task.title}</span>
+                <input
+                    className="checkbox-input"
+                    type="checkbox"
+                    id={task.id}
+                    defaultChecked={task.completed}
+                />
+                <label htmlFor={task.id}>
+                    <span className="checkbox"></span>
+                    <span className="span-title">{task.title}</span>
+                </label>
             </div>
 
             <div className="action">
-                <button onClick={() => handleClick(task, true)}>
+                <button onClick={() => handleClickChange(task)}>
                     Изменить
                 </button>
-                <button onClick={() => handleClick(task, false)}>
+                <button onClick={() => handleClickDelete(task.id)}>
                     Удалить
                 </button>
             </div>
