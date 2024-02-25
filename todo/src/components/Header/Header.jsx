@@ -1,20 +1,34 @@
 import "./Header.css";
 
-
 import Button from "./Button/Button";
 import { useState } from "react";
 
-export default function Header({ onSubmit }) {
-    const [title, setTitle] = useState('')
+import { getCookie } from "../../getCookie";
+import { fetchTaskCreate } from "../../fetch";
 
-    function handleChenge(e){
-        setTitle(e.target.value)
-    }
-    
+export default function Header({ onSubmitCallBack, activeItem, handleChengeCallBack }) {
+    // const [title, setTitle] = useState("");
+
+    const stateActiveItem = activeItem
+    console.log(stateActiveItem)
+
+
     function handleSubmit(e) {
         e.preventDefault();
 
-        onSubmit(title);
+        fetchTaskCreate(activeItem, getCookie);
+        // создать изменение 
+
+        // не используется async могут быть ошибки
+        onSubmitCallBack();
+    }
+
+    function handleChenge(e) {
+        handleChengeCallBack({
+            ...activeItem,
+            title: e.target.value,
+        });
+        
     }
 
     return (
@@ -25,7 +39,7 @@ export default function Header({ onSubmit }) {
                     className="input"
                     type="text"
                     onChange={handleChenge}
-                    
+                    value={stateActiveItem.title ? stateActiveItem.title : ''}
                     placeholder="Add task.."
                 />
                 {/* принимает useState */}

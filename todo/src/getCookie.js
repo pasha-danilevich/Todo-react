@@ -23,31 +23,7 @@ export function getCookie(name) {
 
 
 
-function fetchTaskCreate(contextValue, getCookie) {
-    console.log("saving...");
 
-    var csrftoken = getCookie("csrftoken");
-
-    const url = "http://127.0.0.1:8000/api/task-create/";
-
-    fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json",
-            "X-CSRFToken": csrftoken,
-        },
-        body: JSON.stringify(contextValue.activeItem),
-    })
-        .then(
-            contextValue.setActiveItem({
-                ...contextValue.activeItem,
-                saved: true,
-            })
-        )
-        .catch(function (error) {
-            console.log("ERROR:", error);
-        });
-}
 
 
 

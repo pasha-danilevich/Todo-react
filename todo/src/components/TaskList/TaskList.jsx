@@ -3,9 +3,12 @@ import Task from "./Task/Task";
 
 import { useState, useEffect } from "react";
 
-export default function TaskList({ taskList, loading }) {
-    console.log('TaskList...')
-    console.log('loading', loading)
+export default function TaskList({ taskList, loading, handleClickCallBack }) {
+
+
+    function handleClick(item){
+        handleClickCallBack(item)
+    }
 
     return (
         <div className="wrapper">
@@ -13,7 +16,7 @@ export default function TaskList({ taskList, loading }) {
 
             {!loading &&
                 taskList.map(function (task, index) {
-                    return <Task key={index} task={task} />;
+                    return <Task key={index} task={task} onClickCallBack={handleClick}/>;
                 })}
         </div>
     );
