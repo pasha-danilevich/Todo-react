@@ -16,15 +16,14 @@ export function getCookie(name) {
     return cookieValue;
 }
 
-export function fetchTasks() {
-    console.log("fetch...");
-    const url = "http://127.0.0.1:8000/api/task-list/";
-    const data = fetch(url).then((response) => response.json());
 
-    return data;
-}
 
-export async function fetchTaskCreate(contextValue, getCookie) {
+
+
+
+
+
+function fetchTaskCreate(contextValue, getCookie) {
     console.log("saving...");
 
     var csrftoken = getCookie("csrftoken");
@@ -49,6 +48,49 @@ export async function fetchTaskCreate(contextValue, getCookie) {
             console.log("ERROR:", error);
         });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export async function fetchTaskCreate(contextValue, getCookie) {
+//     console.log("saving...");
+
+//     var csrftoken = getCookie("csrftoken");
+
+//     const url = "http://127.0.0.1:8000/api/task-create/";
+
+//     fetch(url, {
+//         method: "POST",
+//         headers: {
+//             "Content-type": "application/json",
+//             "X-CSRFToken": csrftoken,
+//         },
+//         body: JSON.stringify(contextValue.activeItem),
+//     })
+//         .then(
+//             contextValue.setActiveItem({
+//                 ...contextValue.activeItem,
+//                 saved: true,
+//             })
+//         )
+//         .catch(function (error) {
+//             console.log("ERROR:", error);
+//         });
+// }
 
 // UPDATE
 

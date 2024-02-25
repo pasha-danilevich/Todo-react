@@ -1,16 +1,14 @@
-import { useContext } from "react";
-import { Context } from "../../../context"; 
+
 
 import "./Task.css";
 
 export default function Task(task) {
 
-    const contextValue = useContext(Context)
+
 
     function chengeHendler(obj){
         // добавить поле editing
-        contextValue.setActiveItem(obj)
-        console.log('task in hendler', contextValue.activeItem)
+
     }
 
     return (

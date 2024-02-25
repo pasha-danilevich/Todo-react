@@ -1,33 +1,33 @@
 import "./Header.css";
 
-import { useContext } from "react";
-import { Context } from "../../context.js";
 
-import { fetchTaskCreate, getCookie } from "../../fetch.js";
-
-import Input from "./Input/Input";
 import Button from "./Button/Button";
+import { useState } from "react";
 
-export default function Header() {
-    const contextValue = useContext(Context);
+export default function Header({ onSubmit }) {
+    const [title, setTitle] = useState('')
 
+    function handleChenge(e){
+        setTitle(e.target.value)
+    }
+    
     function handleSubmit(e) {
         e.preventDefault();
 
-        // if (obj.editing == true){
-
-        // }else{
-
-        // }
-        fetchTaskCreate(contextValue, getCookie)
-
+        onSubmit(title);
     }
 
     return (
         <header>
             <form onSubmit={handleSubmit}>
                 {/* отдает title */}
-                <Input />
+                <input
+                    className="input"
+                    type="text"
+                    onChange={handleChenge}
+                    
+                    placeholder="Add task.."
+                />
                 {/* принимает useState */}
                 <Button>Создать</Button>
             </form>
