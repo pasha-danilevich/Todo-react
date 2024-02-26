@@ -15,7 +15,7 @@ export default function App() {
     });
     const [taskList, setTaskList] = useState([]);
     const [loading, setLoading] = useState(true);
-    console.log("App...");
+
 
     async function load() {
         setLoading(true);
@@ -33,7 +33,8 @@ export default function App() {
         });
     }
     function handleClick(item) {
-      if (item == 'delete'){
+
+      if (item == 'delete' || item == 'update'){
         load();
       }else{
         setActiveItem(item);

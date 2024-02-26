@@ -7,7 +7,12 @@
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 20px;
+    transition: 0.1s;
 }
+.completed {
+    border: 1px solid rgb(118 232 137);
+}
+
 
 .title {
     display: flex;

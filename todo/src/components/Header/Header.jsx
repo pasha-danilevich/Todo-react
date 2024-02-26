@@ -29,7 +29,7 @@ export default function Header({ onSubmitCallBack, activeItem, handleChengeCallB
         
         // update +
         // в идеале использовать конструкцию: 
-        // await fetch(url).then(doSomething())
+        // await fetch(url).then(() => doSomething())
     }
 
     function handleChenge(e) {
