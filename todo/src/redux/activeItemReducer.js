@@ -6,13 +6,13 @@ const defaultActiveItem = {
 };
 
 const ADD_TITLE = 'ADD_TITLE'
-const ADD_IS_EDITING = 'ADD_IS_EDITING'
+const SET_EDITING_STATUS = 'SET_EDITING_STATUS'
 
 export function activeItemReducer(state = defaultActiveItem, action) {
     switch (action.type) {
         case ADD_TITLE:
             return { ...state, title: action.payload };
-        case ADD_IS_EDITING:
+        case SET_EDITING_STATUS:
             return { ...state, isEditing: action.payload };
         default:
             return state;
@@ -20,4 +20,4 @@ export function activeItemReducer(state = defaultActiveItem, action) {
 }
 
 export const addTitleAction = (payload) => ({type: ADD_TITLE, payload})
-export const addIsEditingAction = (payload) => ({type: ADD_IS_EDITING, payload})
+export const setEditingStatusAction = (payload) => ({type: SET_EDITING_STATUS, payload})

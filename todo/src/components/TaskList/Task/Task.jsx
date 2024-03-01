@@ -4,14 +4,14 @@ import { fetchTaskDelete, fetchTaskUpdate } from "../../../fetch";
 import { getCookie } from "../../../getCookie";
 
 import { useDispatch, useSelector } from 'react-redux'
-import { addIsEditingAction, addTitleAction } from "../../../redux/activeItemReducer";
+import { setEditingStatusAction, addTitleAction } from "../../../redux/activeItemReducer";
 
 export default function Task({ task, onClickCallBack }) {
     const dispatch = useDispatch()
 
     function handleClickChange(item) {
         dispatch(addTitleAction(item.title))
-        dispatch(addIsEditingAction(true))
+        dispatch(setEditingStatusAction(true))
         console.log('handleClickChange()', item)
     }
 

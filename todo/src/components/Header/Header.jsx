@@ -7,14 +7,20 @@ import { getCookie } from "../../getCookie";
 import { fetchTaskCreate, fetchTaskUpdate } from "../../fetch";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addTitleAction } from "../../redux/activeItemReducer";
+import {
+    addTitleAction,
+    setEditingStatusAction,
+} from "../../redux/activeItemReducer";
 
-function Header({ onSubmitCallBack }) {
+function Header() {
     const dispatch = useDispatch();
     const activeItem = useSelector((state) => state.activeItem);
 
     function handleChenge(e) {
         dispatch(addTitleAction(e.target.value));
+        if (e.target.value == "") {
+            dispatch(setEditingStatusAction(false))
+        }
     }
 
     function taskCreate(title) {}
@@ -22,16 +28,21 @@ function Header({ onSubmitCallBack }) {
     function handleSubmit(e) {
         e.preventDefault();
 
-        if (activeItem.editing) {
-            fetchTaskUpdate(activeItem, getCookie).then(() =>
-                onSubmitCallBack()
-            );
+        if (activeItem.isEditing) {
+            fetchTaskUpdate(activeItem, getCookie);
         } else {
-            fetchTaskCreate(activeItem, getCookie).then(() =>
-                onSubmitCallBack()
-            );
+            fetchTaskCreate(activeItem, getCookie);
         }
     }
+
+    function createOrUpdateButtonText(text) {
+        if (activeItem.isEditing & (activeItem.title != "")) {
+            return "Изменить";
+        } else {
+            return "Создать";
+        }
+    }
+    console.log('isEditing', activeItem.isEditing);
 
     return (
         <header>
@@ -44,7 +55,7 @@ function Header({ onSubmitCallBack }) {
                     placeholder="Что надо сделать..."
                 />
                 <button type="submit" className={classes.button}>
-                    {activeItem.isEditing ? "Изменить" : "Создать"}
+                    {createOrUpdateButtonText()}
                 </button>
             </form>
         </header>
