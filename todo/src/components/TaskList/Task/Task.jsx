@@ -3,14 +3,16 @@ import "./Task.css";
 import { fetchTaskDelete, fetchTaskUpdate } from "../../../fetch";
 import { getCookie } from "../../../getCookie";
 
+import { useDispatch, useSelector } from 'react-redux'
+import { addIsEditingAction, addTitleAction } from "../../../redux/activeItemReducer";
+
 export default function Task({ task, onClickCallBack }) {
+    const dispatch = useDispatch()
+
     function handleClickChange(item) {
-        const task = {
-            ...item,
-            editing: true,
-        };
-        onClickCallBack(task);
-        console.log(item)
+        dispatch(addTitleAction(item.title))
+        dispatch(addIsEditingAction(true))
+        console.log('handleClickChange()', item)
     }
 
     function handleClickDelete(id) {
@@ -52,3 +54,6 @@ export default function Task({ task, onClickCallBack }) {
         </div>
     );
 }
+
+
+// export default Task = memo(Task)

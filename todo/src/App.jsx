@@ -7,16 +7,13 @@ import { useState, useEffect } from "react";
 import { fetchTasks } from "./fetch";
 
 export default function App() {
-    const [activeItem, setActiveItem] = useState({
-        id: null,
-        title: "",
-        complated: false,
-        editing: false,
-    });
+    // нужно вынести это состояние в header
+    
+
     const [taskList, setTaskList] = useState([]);
     const [loading, setLoading] = useState(true);
 
-
+    console.log('render app')
     async function load() {
         setLoading(true);
         setTaskList(await fetchTasks());
@@ -25,24 +22,24 @@ export default function App() {
 
     function handleSubmit(bool) {
         load();
-        setActiveItem({
-            id: null,
-            title: "",
-            complated: false,
-            editing: false,
-        });
+        // setActiveItem({
+        //     id: null,
+        //     title: "",
+        //     complated: false,
+        //     editing: false,
+        // });
     }
     function handleClick(item) {
 
       if (item == 'delete' || item == 'update'){
         load();
       }else{
-        setActiveItem(item);
+        // setActiveItem(item);
       }
       
     }
     function handleChenge(item) {
-        setActiveItem(item);
+        // setActiveItem(item);
     }
 
     useEffect(() => {
@@ -53,7 +50,7 @@ export default function App() {
         <>
             <Header
                 onSubmitCallBack={handleSubmit}
-                activeItem={activeItem}
+                // activeItem={activeItem}
                 handleChengeCallBack={handleChenge}
             />
             <TaskList

@@ -5,11 +5,12 @@ export function fetchTasks(setTaskList, setLoading) {
     return response;
 }
 
-async function fetchCreatUpdate(url, getCookie, item) {
+async function fetchCreatUpdate(url, method, getCookie, item) {
     var csrftoken = getCookie("csrftoken");
 
+
     await fetch(url, {
-        method: "POST",
+        method: method,
         headers: {
             "Content-type": "application/json",
             "X-CSRFToken": csrftoken,
@@ -24,13 +25,15 @@ export async function fetchTaskUpdate(item, getCookie) {
     console.log("updating...");
     const url = `http://127.0.0.1:8000/api/task-update/${item.id}`;
 
-    await fetchCreatUpdate(url, getCookie, item);
+    await fetchCreatUpdate(url, "PATCH", getCookie, item);
 }
 export async function fetchTaskCreate(item, getCookie) {
     console.log("saving...");
     const url = "http://127.0.0.1:8000/api/task-create/";
-
-    await fetchCreatUpdate(url, getCookie, item);
+    const filterObject = {
+        title: item.title
+    }
+    await fetchCreatUpdate(url, "POST", getCookie, filterObject);
 }
 
 export async function fetchTaskDelete(id, getCookie) {
