@@ -27,8 +27,10 @@ function Header() {
 
         if (activeItem.isEditing) {
             const response = fetchTaskUpdate(activeItem)
+            
         } else {
             const response = fetchTaskCreate(activeItem);
+            console.log(response.json())
         }
     }
 

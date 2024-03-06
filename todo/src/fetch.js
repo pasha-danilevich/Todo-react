@@ -9,7 +9,7 @@ export function fetchTasks() {
     return function(dispatch){
         const url = `${rootUrl}task-list/`;
         fetch(url).then((response) => response.json())
-        .then((json) => dispatch( (json)))
+        .then((json) => dispatch(setAllTasks(json)))
     }
 }
 
