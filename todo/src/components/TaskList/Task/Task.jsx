@@ -1,34 +1,38 @@
 import "./Task.css";
 
-import { fetchTaskDelete, fetchTaskUpdate } from "../../../fetch";
-import { getCookie } from "../../../getCookie";
+import { fetchTaskDelete } from "../../../fetch";
 
-import { useDispatch, useSelector } from 'react-redux'
-import { setEditingStatusAction, addTitleAction } from "../../../redux/activeItemReducer";
 
-export default function Task({ task, onClickCallBack }) {
-    const dispatch = useDispatch()
+import { useDispatch } from "react-redux";
+import {
+    setEditingStatusAction,
+    addTitleAction,
+    addIdAction,
+} from "../../../redux/activeItemReducer";
+import { removeTaskAction, setCompleted } from "../../../redux/taskReducer";
+
+export default function Task({ task }) {
+    const dispatch = useDispatch();
 
     function handleClickChange(item) {
-        dispatch(addTitleAction(item.title))
-        dispatch(setEditingStatusAction(true))
-        console.log('handleClickChange()', item)
+        dispatch(addIdAction(item.id))
+        dispatch(addTitleAction(item.title));
+        dispatch(setEditingStatusAction(true));
+        console.log("handleClickChange()", item);
     }
 
     function handleClickDelete(id) {
-        fetchTaskDelete(id, getCookie).then(() => onClickCallBack("delete"));
+        dispatch(removeTaskAction(id));
+        fetchTaskDelete(id);
+        console.log("id delete", id);
     }
-    function handleCheckbox(event, item){
-        const task = {
-            ...item,
-            completed: event.target.checked,
-        };
-        fetchTaskUpdate(task, getCookie).then(() => onClickCallBack("update"))
-        console.log(task)
+    function handleCheckbox(event, item) {
+        console.log(event.target.checked, item.id);
+        dispatch(setCompleted({ event: event.target.checked, id: item.id }));
     }
 
     return (
-        <div className={task.completed ? 'task completed' : 'task'}>
+        <div className={task.completed ? "task completed" : "task"}>
             <div className="title">
                 <input
                     className="checkbox-input"
@@ -54,6 +58,5 @@ export default function Task({ task, onClickCallBack }) {
         </div>
     );
 }
-
 
 // export default Task = memo(Task)

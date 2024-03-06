@@ -1,54 +1,58 @@
-export function fetchTasks(setTaskList, setLoading) {
+import { setAllTasks } from "./redux/taskReducer";
+import { getCookie} from "./getCookie"; 
+
+const rootUrl = 'http://127.0.0.1:8000/api/'
+
+
+export function fetchTasks() {
     console.log("fetch...");
-    const url = "http://127.0.0.1:8000/api/task-list/";
-    const response = fetch(url).then((response) => response.json());
-    return response;
+    return function(dispatch){
+        const url = `${rootUrl}task-list/`;
+        fetch(url).then((response) => response.json())
+        .then((json) => dispatch( (json)))
+    }
 }
 
-async function fetchCreatUpdate(url, method, getCookie, item) {
+async function fetchCustom(url, method, item) {
     var csrftoken = getCookie("csrftoken");
 
-
-    await fetch(url, {
+    const response = await fetch(url, {
         method: method,
         headers: {
             "Content-type": "application/json",
             "X-CSRFToken": csrftoken,
         },
         body: JSON.stringify(item),
-    }).catch(function (error) {
+    })
+    .then((response) => response.json())
+    .then((json) => console.log(`fetch ${method}`, json))
+    .catch(function (error) {
         console.log("ERROR:", error);
     });
+    return response
 }
 
-export async function fetchTaskUpdate(item, getCookie) {
+export async function fetchTaskUpdate(item) {
     console.log("updating...");
-    const url = `http://127.0.0.1:8000/api/task-update/${item.id}`;
+    console.log('item update fetch', item)
+    const url = `${rootUrl}task-update/${item.id}`;
 
-    await fetchCreatUpdate(url, "PATCH", getCookie, item);
+    await fetchCustom(url, "PATCH", item);
 }
-export async function fetchTaskCreate(item, getCookie) {
+export async function fetchTaskCreate(item) {
     console.log("saving...");
-    const url = "http://127.0.0.1:8000/api/task-create/";
+    const url = `${rootUrl}task-create/`;
     const filterObject = {
         title: item.title
     }
-    await fetchCreatUpdate(url, "POST", getCookie, filterObject);
+    const response = await fetchCustom(url, "POST", filterObject);
+    return response
 }
 
-export async function fetchTaskDelete(id, getCookie) {
+export async function fetchTaskDelete(id) {
     console.log("delete...");
-    var csrftoken = getCookie("csrftoken");
+    const url = `${rootUrl}task-delete/${id}`;
 
-    const url = `http://127.0.0.1:8000/api/task-delete/${id}`;
+    await fetchCustom(url, "DELETE", null)
 
-    await fetch(url, {
-        method: "DELETE",
-        headers: {
-            "Content-type": "application/json",
-            "X-CSRFToken": csrftoken,
-        },
-    }).catch(function (error) {
-        console.log("ERROR:", error);
-    });
 }

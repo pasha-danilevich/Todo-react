@@ -3,7 +3,6 @@ import classes from "./Button.module.css";
 
 import { memo } from "react";
 
-import { getCookie } from "../../getCookie";
 import { fetchTaskCreate, fetchTaskUpdate } from "../../fetch";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -19,19 +18,17 @@ function Header() {
     function handleChenge(e) {
         dispatch(addTitleAction(e.target.value));
         if (e.target.value == "") {
-            dispatch(setEditingStatusAction(false))
+            dispatch(setEditingStatusAction(false));
         }
     }
-
-    function taskCreate(title) {}
 
     function handleSubmit(e) {
         e.preventDefault();
 
         if (activeItem.isEditing) {
-            fetchTaskUpdate(activeItem, getCookie);
+            const response = fetchTaskUpdate(activeItem)
         } else {
-            fetchTaskCreate(activeItem, getCookie);
+            const response = fetchTaskCreate(activeItem);
         }
     }
 
@@ -42,7 +39,6 @@ function Header() {
             return "Создать";
         }
     }
-    console.log('isEditing', activeItem.isEditing);
 
     return (
         <header>
