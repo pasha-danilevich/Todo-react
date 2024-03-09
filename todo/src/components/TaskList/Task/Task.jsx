@@ -27,7 +27,7 @@ export default function Task({ task }) {
     }
 
     return (
-        <div className={task.completed ? "task completed" : "task"}>
+        <label htmlFor={task.id} className={task.completed ? "task completed" : "task"}>
             <div className="title">
                 <input
                     className="checkbox-input"
@@ -50,7 +50,7 @@ export default function Task({ task }) {
                     Удалить
                 </button>
             </div>
-        </div>
+        </label>
     );
 }
 
