@@ -3,39 +3,39 @@ import classes from "./Button.module.css";
 
 import { memo } from "react";
 
-import { fetchTaskCreate, fetchTaskUpdate } from "../../fetch";
-
 import { useDispatch, useSelector } from "react-redux";
-import {
-    addTitleAction,
-    setEditingStatusAction,
-} from "../../redux/activeItemReducer";
+
+import { setTitleToActiveItem, toggleEditingToActiveItem } from "../../redux/activeItemSlice";
+import { fetchCreateTask, fetchUpdateTask } from "../../redux/taskSlice";
 
 function Header() {
     const dispatch = useDispatch();
-    const activeItem = useSelector((state) => state.activeItem);
+    const activeItem = useSelector((state) => state.activeItem.task);
+
 
     function handleChenge(e) {
-        dispatch(addTitleAction(e.target.value));
+        dispatch(setTitleToActiveItem({ title: e.target.value }))
+
         if (e.target.value == "") {
-            dispatch(setEditingStatusAction(false));
+            dispatch(toggleEditingToActiveItem({editing: false}));
         }
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-
-        if (activeItem.isEditing) {
-            const response = fetchTaskUpdate(activeItem)
+        
+        if (activeItem.editing) {
+            dispatch(fetchUpdateTask(activeItem))
             
         } else {
-            const response = fetchTaskCreate(activeItem);
-            console.log(response.json())
+            dispatch(fetchCreateTask(activeItem.title))
         }
+        dispatch(setTitleToActiveItem({ title: '' }))
+        dispatch(toggleEditingToActiveItem({editing: false}));
     }
 
     function createOrUpdateButtonText(text) {
-        if (activeItem.isEditing & (activeItem.title != "")) {
+        if (activeItem.editing & (activeItem.title != "")) {
             return "Изменить";
         } else {
             return "Создать";

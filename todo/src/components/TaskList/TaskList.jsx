@@ -1,24 +1,21 @@
 import "./TaskList.css";
 import Task from "./Task/Task";
-import { fetchTasks } from "../../fetch";
+
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { fetchTasks } from "../../redux/taskSlice";
 
 export default function TaskList() {
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.tasks.tasks);
+    const loading = useSelector((state) => state.tasks.loading);
+    const error = useSelector((state) => state.tasks.error)
 
-    const [loading, setLoading] = useState(true);
 
-    function load() {
-        setLoading(true);
-        dispatch(fetchTasks())
-        setLoading(false);
-    }
+
     useEffect(() => {
-        load();
+        dispatch(fetchTasks())
     }, []);
-
     return (
         <div className="wrapper">
             {loading && <p>Loading...</p>}

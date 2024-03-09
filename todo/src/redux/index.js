@@ -1,14 +1,11 @@
-import { taskReducer } from "./taskReducer"; 
-import { activeItemReducer } from "./activeItemReducer"; 
 
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { configureStore } from '@reduxjs/toolkit';
+import  taskReducer  from './taskSlice';
+import activeItemReducer from './activeItemSlice';
 
-import {thunk} from 'redux-thunk'
-import { composeWithDevTools } from '@redux-devtools/extension';
-
-const rootReducer = combineReducers({
-    activeItem: activeItemReducer,
+export default configureStore({
+  reducer: {
     tasks: taskReducer,
-})
-
-export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+    activeItem: activeItemReducer,
+  },
+});

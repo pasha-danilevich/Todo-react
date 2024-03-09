@@ -1,34 +1,29 @@
 import "./Task.css";
 
-import { fetchTaskDelete } from "../../../fetch";
-
-
 import { useDispatch } from "react-redux";
-import {
-    setEditingStatusAction,
-    addTitleAction,
-    addIdAction,
-} from "../../../redux/activeItemReducer";
-import { removeTaskAction, setCompleted } from "../../../redux/taskReducer";
+import { setIdToActiveItem, setTitleToActiveItem, toggleEditingToActiveItem } from "../../../redux/activeItemSlice";
+import { toggleComplete, fetchDeleteTask, fetchUpdateTask } from "../../../redux/taskSlice";
 
 export default function Task({ task }) {
     const dispatch = useDispatch();
 
     function handleClickChange(item) {
-        dispatch(addIdAction(item.id))
-        dispatch(addTitleAction(item.title));
-        dispatch(setEditingStatusAction(true));
-        console.log("handleClickChange()", item);
+        dispatch(setIdToActiveItem({ id: item.id }));
+        dispatch(setTitleToActiveItem({ title: item.title }));
+        dispatch(toggleEditingToActiveItem({ editing: true }));
+
     }
 
     function handleClickDelete(id) {
-        dispatch(removeTaskAction(id));
-        fetchTaskDelete(id);
-        console.log("id delete", id);
+        dispatch(fetchDeleteTask(id));
+
     }
     function handleCheckbox(event, item) {
-        console.log(event.target.checked, item.id);
-        dispatch(setCompleted({ event: event.target.checked, id: item.id }));
+        dispatch(fetchUpdateTask({
+            id: item.id, 
+            title: item.title,
+            completed: event.target.checked
+        }))
     }
 
     return (
@@ -42,8 +37,8 @@ export default function Task({ task }) {
                     onChange={(event) => handleCheckbox(event, task)}
                 />
                 <label htmlFor={task.id}>
-                    <span className="checkbox"></span>
-                    <span className="span-title">{task.title}</span>
+                    <span className="checkbox noselect"></span>
+                    <span className="span-title noselect">{task.title}</span>
                 </label>
             </div>
 
