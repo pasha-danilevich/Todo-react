@@ -37,17 +37,30 @@ a:hover {
 
 body {
   margin: 0;
+  display: flex;
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+.icon {
+  width: 20px;
+}
+.delete-icon{
+  fill: #ff4e4e;
+}
+.change-icon {
+  fill: #e3e3e3;
+}
+.send-icon {
+  fill: #e3e3e3;
+}
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  border: 0px solid transparent;
+  padding: 4px;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -74,4 +87,9 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+
+@media (min-width: 992px)  { 
+  
 }

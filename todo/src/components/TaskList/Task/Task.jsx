@@ -1,8 +1,18 @@
 import "./Task.css";
 
+import { svgChange } from "../../../assets/todo_icons_change.jsx";
+import { svgDelete } from "../../../assets/todo_icons_delete.jsx";
 import { useDispatch } from "react-redux";
-import { setIdToActiveItem, setTitleToActiveItem, toggleEditingToActiveItem } from "../../../redux/activeItemSlice";
-import { toggleComplete, fetchDeleteTask, fetchUpdateTask } from "../../../redux/taskSlice";
+import {
+    setIdToActiveItem,
+    setTitleToActiveItem,
+    toggleEditingToActiveItem,
+} from "../../../redux/activeItemSlice";
+import {
+    toggleComplete,
+    fetchDeleteTask,
+    fetchUpdateTask,
+} from "../../../redux/taskSlice";
 
 export default function Task({ task }) {
     const dispatch = useDispatch();
@@ -11,23 +21,26 @@ export default function Task({ task }) {
         dispatch(setIdToActiveItem({ id: item.id }));
         dispatch(setTitleToActiveItem({ title: item.title }));
         dispatch(toggleEditingToActiveItem({ editing: true }));
-
     }
 
     function handleClickDelete(id) {
         dispatch(fetchDeleteTask(id));
-
     }
     function handleCheckbox(event, item) {
-        dispatch(fetchUpdateTask({
-            id: item.id, 
-            title: item.title,
-            completed: event.target.checked
-        }))
+        dispatch(
+            fetchUpdateTask({
+                id: item.id,
+                title: item.title,
+                completed: event.target.checked,
+            })
+        );
     }
 
     return (
-        <label htmlFor={task.id} className={task.completed ? "task completed" : "task"}>
+        <label
+            htmlFor={task.id}
+            className={task.completed ? "task completed" : "task"}
+        >
             <div className="title">
                 <input
                     className="checkbox-input"
@@ -43,11 +56,17 @@ export default function Task({ task }) {
             </div>
 
             <div className="action">
-                <button onClick={() => handleClickChange(task)}>
-                    Изменить
+                <button
+                    className="noselect"
+                    onClick={() => handleClickChange(task)}
+                >
+                    {svgChange}
                 </button>
-                <button onClick={() => handleClickDelete(task.id)}>
-                    Удалить
+                <button
+                    className="noselect"
+                    onClick={() => handleClickDelete(task.id)}
+                >
+                    {svgDelete}
                 </button>
             </div>
         </label>
