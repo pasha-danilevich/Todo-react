@@ -1,26 +1,28 @@
 import "./TaskList.css";
-import { fetchTasks } from "../../fetch";
-
 import Task from "./Task/Task";
 
-import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchTasks } from "../../redux/taskSlice";
 
 export default function TaskList() {
-    
+    const dispatch = useDispatch();
+    const tasks = useSelector((state) => state.tasks.tasks);
+    const loading = useSelector((state) => state.tasks.loading);
+    const error = useSelector((state) => state.tasks.error)
 
+
+
+    useEffect(() => {
+        dispatch(fetchTasks())
+    }, []);
     return (
         <div className="wrapper">
             {loading && <p>Loading...</p>}
-            
+
             {!loading && 
-                listTasks.map(function (task, index) {
-                    return (
-                        // Передать key прям в сомпонент Task
-                        // Убрать div
-                        <div key={index}>
-                            <Task task={task} />
-                        </div>
-                    );
+                tasks.map(function (task, index) {
+                    return <Task key={`${index + task.title + task.id}`} task={task}/>;
                 })}
         </div>
     );

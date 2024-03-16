@@ -1,16 +1,39 @@
 import "./App.css";
 import Header from "./components/Header/Header";
 import TaskList from "./components/TaskList/TaskList";
-import { useState } from "react";
 
 export default function App() {
-  const [listTasks, setTasks] = useState([]);
 
+
+
+    function handleSubmit(bool) {
+        // load();
+        // setActiveItem({
+        //     id: null,
+        //     title: "",
+        //     complated: false,
+        //     editing: false,
+        // });
+    }
+    function handleClick(item) {
+        if (item == "delete" || item == "update") {
+            // load();
+        } else {
+            // setActiveItem(item);
+        }
+    }
+    function handleChenge(item) {
+        // setActiveItem(item);
+    }
 
     return (
-        <>
-            <Header />
-            <TaskList listTasks = {listTasks}/>
-        </>
+        <div>
+            <Header
+                onSubmitCallBack={handleSubmit}
+                // activeItem={activeItem}
+                handleChengeCallBack={handleChenge}
+            />
+            <TaskList />
+        </div>
     );
 }
