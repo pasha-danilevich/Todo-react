@@ -41,12 +41,16 @@ function Header() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        
-        if (activeItem.editing) {
-            dispatch(fetchUpdateTask(activeItem))
-            
+
+        if (activeItem.title == '' || activeItem.title == null){
+
         } else {
-            dispatch(fetchCreateTask(activeItem.title))
+            if (activeItem.editing) {
+                dispatch(fetchUpdateTask(activeItem))
+                
+            } else {
+                dispatch(fetchCreateTask(activeItem.title))
+            }
         }
         dispatch(setTitleToActiveItem({ title: '' }))
         dispatch(toggleEditingToActiveItem({editing: false}));
